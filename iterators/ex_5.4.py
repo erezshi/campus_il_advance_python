@@ -1,14 +1,6 @@
 from functools import reduce
 from itertools import count
 
-# c = count(1)
-# print(next(c))
-# print(next(c))
-# print(next(c))
-# print(next(c))
-# print(next(c))
-   
-
 class IDIterator:
     def __init__(self, id=100000000):
         self._id = id
@@ -28,19 +20,13 @@ class IDIterator:
         return self
 
     def __next__(self):
-        if self._id >= 999999999:
-            raise StopIteration()
-        # for id in count(self._id):
-        #     if not self.check_id_valid(id):
-        #         # self._id += 1
-        #         continue  
-        #     else:
-        #         return self._id
-        self._id += 1
-        return self._id
-
-        # return self.check_id_valid(self._id)
-
+        while True:
+            if self.check_id_valid(self._id):
+                self._id += 1
+                return self._id -1
+            if self._id >= 999999999:
+                raise StopIteration()
+            self._id += 1
 
 
 def main():
