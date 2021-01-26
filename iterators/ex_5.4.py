@@ -28,21 +28,37 @@ class IDIterator:
                 raise StopIteration()
             self._id += 1
 
+    def id_generator(self):
+        while self._id <= 999999999:
+            if self.check_id_valid(self._id):
+                yield self._id
+            self._id += 1
+
 
 def main():
-    id_iter = IDIterator(123456780)
-    print(next(id_iter))
-    print(next(id_iter))
-    print(next(id_iter))
-    print(next(id_iter))
-    print(next(id_iter))
-    print(next(id_iter))
-    print(next(id_iter))
-    print(next(id_iter))
-    print(next(id_iter))
-    print(next(id_iter))
-    
 
+    # id = 123456780
+    id = input("Enter ID:   ")
+    var = input("Generator or Iterator? (gen/it):  ")
+    # var = "gen"
+    # gen_id = id_iter.id_generator()
+    if var == "it":
+        obj = iter(IDIterator(int(id)))
+    elif var == "gen":
+        obj = IDIterator(int(id)).id_generator()
+    else:
+        print("An invalid argument was entered...")
+
+
+    try:
+        for i in range(10):
+        # for id in obj:
+        #     print(id)
+            print(next(obj)) #using next instead of for id in obj to catch the exception
+    except StopIteration:
+        print(f"you have reached id 999999999..ending loop")
+    except UnboundLocalError as e:
+        print(e)
 
 main()
 
